@@ -1,0 +1,52 @@
+@extends('ADNavbar')
+
+
+<main class="mt-5 pt-5">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title bi bi-table pt-2">
+                            จัดการบทเรียน
+                            <a class="card-toolbar btn btn-success bi bi-plus-circle" style="float:right;"
+                                href="{{ route('ADCreateLesson') }}">
+                                เพิ่มบทเรียน</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example" class="table table-striped data-table" style="width: 100%">
+                                <thead>
+                                    <tr>
+                                        <th>ลำดับ</th>
+                                        <th>บทเรียน</th>
+                                        <th>จัดการข้อมูล</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($data as $key => $value)
+                                    <tr>
+                                        <td>{{++$i}}</td>
+                                        <td>{{$value->lesson_name }}</td>
+                                        <td>
+                                            <form action="/{$lesson->id}/ADIndexLesson" method="POST">
+                                                <a href="{{url('/ADEditLesson/'.$value->id)}}"
+                                                    class="btn btn-warning text-light bi bi-pencil"> แก้ไข</a>
+                                                @csrf
+                                                <a href="{{url('/ADDeleteLesson/'.$value->id)}}"
+                                                    class="btn btn-danger bi bi-trash"> ลบ</a>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</main>
