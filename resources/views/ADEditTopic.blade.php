@@ -24,10 +24,18 @@
                         <form action="{{url('/ADUpdateTopic/'.$topic->id)}}" method="POST">
                             @csrf
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">ชื่อ</label>
+                                <label class="col-sm-2 col-form-label">หัวข้อบทเรียน</label>
                                 <div class="col-sm-4">
                                     <input class="form-control" type="text" name="topic_name" id="example-text-input"
                                         value="{{$topic->topic_name}}">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">หัวข้อบทเรียน</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" type="text" name="topic_id" id="example-text-input"
+                                        value="{{$topic->topic_id}}">
                                 </div>
                             </div>
                             <br>
@@ -49,6 +57,12 @@
                                 <label class="col-sm-2  col-form-label">รูปภาพ</label>
                                 <div class="custom-file col-sm-4">
                                     <input type="file" class="custom-file-input" id="topic_img" name="topic_img" />
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group row">
+                                <div class="col-sm-6 text-center">
+                                    <img src="{{ Storage::url($topic->topic_img) }}" alt="" width="150" class="">
                                 </div>
                             </div>
                             <br>

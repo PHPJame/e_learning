@@ -21,12 +21,20 @@
                             </ul>
                         </div>
                         @endif
-                        <form action="{{route('ADAddTopic')}}" method="POST">
+                        <form action="{{route('ADAddTopic')}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">หัวข้อบทเรียน</label>
                                 <div class="col-sm-4">
                                     <input class="form-control" type="text" name="topic_name" value=""
+                                        id="example-text-input" required>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">หัวข้อบทเรียน</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" type="text" name="topic_id" value=""
                                         id="example-text-input" required>
                                 </div>
                             </div>

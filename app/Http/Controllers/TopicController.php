@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\Topic;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Course;
 
 class TopicController extends Controller
@@ -33,7 +33,7 @@ class TopicController extends Controller
      */
     public function create()
     {
-        $course  =  Course::all();;
+        $course  =  Course::all();
         return view('ADCreateTopic', compact('course'));
     }
 
@@ -45,23 +45,24 @@ class TopicController extends Controller
      */
     public function store(Request $request)
     {
+        $path = Storage::disk('public')->put('images',  $request->topic_img);
         $request->validate([
+            'topic_id' => 'required',
             'topic_name' => 'required',
             'topic_detail' => 'required',
-            'topic_img' => 'required',
             'course_id' => 'required',
             'user_id' => 'required',
-
         ]);
+
         $data = array();
+        $data["topic_id"] = $request->topic_id;
         $data["topic_name"] = $request->topic_name;
         $data["topic_detail"] = $request->topic_detail;
-        $data["topic_img"] = $request->topic_img;
+        $data["topic_img"] = $path;
         $data["course_id"] = $request->course_id;
         $data["user_id"] = $request->user_id;
         //query builder
         DB::table('topics')->insert($data);
-
         return redirect()->route('ADIndexTopic')->with('success', "บันทึกข้อมูลเรียบร้อย");
     }
 
@@ -105,10 +106,11 @@ class TopicController extends Controller
             'course_id' => 'required',
             'user_id' => 'required',
         ]);
+        $path = Storage::disk('public')->put('images',  $request->topic_img);
         $update = Topic::find($id)->update([
             'topic_name' => $request->topic_name,
             'topic_detail' => $request->topic_detail,
-            'topic_img' => $request->topic_img,
+            'topic_img' => $path,
             'course_id' => $request->course_id,
             'user_id' => $request->user_id
         ]);
